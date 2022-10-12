@@ -9,5 +9,5 @@ venvで環境を構築。flaskでウェブサーバを運用。
 ## 元となったプログラム
 ### BERTによる自然言語処理を学ぼう！ -Attention、TransformerからBERTへとつながるNLP技術-
 自然言語処理の様々なタスクで高い性能を発揮する、「BERT」を学ぶ講座です。  
-BERT（Bidirectional Encoder Representations from Transformers ）は2018年10月にGoogleが公開して以来、世界中のAI関係者の注目を集めています。 
+BERT（Bidirectional Encoder Representations from Transformers ）は2018年10月にGoogleが公開して以来、世界中のAI関係者の注目を集めています。  
 Udemyコース: [BERTによる自然言語処理を学ぼう！](https://www.udemy.com/course/nlp-bert/?referralCode=276BD5473E099ACEAFCD)
