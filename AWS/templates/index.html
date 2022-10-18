@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HW2(β)</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HMKKELYV14"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HMKKELYV14');
+</script>
+
+</head>
+
+
+<body>
+<h2>Hello World2 (β)</h2> 
+
+<p>
+  <a href="https://kaken.nii.ac.jp" target="_blank">
+    <img src="static/K.png" alt="科研費データベース" title="科研費データベース">
+  </a>
+</p>
+
+<b>（概要）</b></br>
+<form action="/" method="POST" enctype="multipart/form-data">
+    <textarea name="name" required="required" rows="12" cols="42" autofocus></textarea></br>
+    <input type="submit" value="submit" style="width:200px;height:50px;padding:20px;box-sizing:border-box;border-style:solid;background:#126aff;cursor:pointer">
+</form>
+
+<h2>{{ result1 }}</h2>
+
+<table>
+{% for key in result2 %}
+<tr>
+    <td align="center">{{ key }}</td>
+    <td align="right">{{ result2[key] }}%</td>
+</tr>
+{% endfor %}
+</table>
+
+<p>{{ result3 }}</p>
+
+</body>
+</html>
