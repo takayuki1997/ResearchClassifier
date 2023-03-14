@@ -39,7 +39,7 @@ def post():
     y = loaded_model(x)  # 予測
     y = y[0]
     pred = y.argmax(-1)  # 最大値のインデックス
-    out_put = "大区分"+Daikubun[pred]
+    max_kubun = Daikubun[pred] # 最大値の大区分のアルファベット
 
 
     m = torch.nn.Softmax(dim=1) # Softmax関数で確率に変換
@@ -52,9 +52,9 @@ def post():
 
     return render_template(
         'index.html',
-        result1=out_put,
-        result2=all_result,
-        result3=sample_text, # 判定するオリジナルのテキスト
+        max_kubun=max_kubun,
+        all_result=all_result,
+        sample_text=sample_text, # 判定するオリジナルのテキスト
         # result4=df_result,
         # result4=words, # トークナイズされたテキスト
         )
