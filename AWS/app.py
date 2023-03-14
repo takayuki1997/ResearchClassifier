@@ -48,7 +48,12 @@ def post():
     all_result = dict(zip(Daikubun, yy))
 
     # return render_template('index.html', result1=out_put, result2=all_result, result3=sample_text, result4=words)
-    return render_template('index.html', result1=out_put, result2=all_result, result3=sample_text)
+    return render_template(
+        'index.html',
+        result1=out_put,
+        result2=all_result,
+        result3=sample_text,
+        )
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
