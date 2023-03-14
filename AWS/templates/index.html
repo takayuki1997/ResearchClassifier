@@ -35,13 +35,13 @@
 
 <table>
   <TR>
-    <TD></TD>
+    <TD>大区分</TD>
     {% for key in all_result %}
       <TD align="center">{{ key }}</TD>
     {% endfor %}
   </TR>
   <TR>
-    <TD>大区分{{ max_kubun }}</TD>
+    <TD>{{ max_kubun }}</TD>
     {% for key in all_result %}
       <TD align="right">{{ all_result[key] }}</TD>
     {% endfor %}
