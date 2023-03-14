@@ -55,7 +55,7 @@ def post():
         result1=out_put,
         result2=all_result,
         result3=sample_text, # 判定するオリジナルのテキスト
-        result4=df_result,
+        # result4=df_result,
         # result4=words, # トークナイズされたテキスト
         )
 
