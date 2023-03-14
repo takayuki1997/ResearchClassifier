@@ -48,7 +48,7 @@ def post():
     yy = list(map(lambda x: int(x*100), yy))
     all_result = dict(zip(Daikubun, yy))
 
-    df_result = pd.DataFrame(data=yy, columns=Daikubun)
+    df_result = pd.DataFrame(data=yy, index=Daikubun)
 
     return render_template(
         'index.html',
