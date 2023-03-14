@@ -37,11 +37,13 @@
 
 <table>
   <TR>
+    <TD></TD>
     {% for key in result2 %}
       <TD align="center">{{ key }}</TD>
     {% endfor %}
   </TR>
   <TR>
+    <TD>{{ result1 }}</TD>
     {% for key in result2 %}
       <TD align="right">{{ result2[key] }}</TD>
     {% endfor %}
