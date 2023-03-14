@@ -53,6 +53,7 @@ def post():
         result1=out_put,
         result2=all_result,
         result3=sample_text,
+        # result4=words,
         )
 
 if __name__ == '__main__':
