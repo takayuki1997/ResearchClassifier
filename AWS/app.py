@@ -47,7 +47,6 @@ def post():
     yy = list(map(lambda x: int(x*100), yy))
     all_result = dict(zip(Daikubun, yy))
 
-    # return render_template('index.html', result1=out_put, result2=all_result, result3=sample_text, result4=words)
     return render_template(
         'index.html',
         result1=out_put,
