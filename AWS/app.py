@@ -3,13 +3,14 @@
 from flask import Flask, render_template, request
 import torch
 from transformers import BertForSequenceClassification, BertJapaneseTokenizer
+import pandas as pd
 
 app = Flask(__name__)
 
 # モデルをロード
 data_path = "/home/ec2-user/env/data/"
 loaded_model = BertForSequenceClassification.from_pretrained(data_path) 
-# loaded_model.cuda() # GPU未対応===========================================
+# loaded_model.cuda() # GPU対応時はコメントアウトを外しcudaに変換
 loaded_tokenizer = BertJapaneseTokenizer.from_pretrained(data_path)
 
 # 大区分の名称
@@ -33,8 +34,8 @@ def post():
     word_ids = loaded_tokenizer.convert_tokens_to_ids(words)  # 単語をインデックスに変換
     word_tensor = torch.tensor([word_ids[:max_length]])  # テンソルに変換
 
-    # x = word_tensor.cuda()  # GPU対応
-    x = word_tensor # GPU未対応==============================================
+    # x = word_tensor.cuda()  # GPU対応時はこちらを使う
+    x = word_tensor # GPU未対応時はこちらを使う
     y = loaded_model(x)  # 予測
     y = y[0]
     pred = y.argmax(-1)  # 最大値のインデックス
@@ -47,12 +48,15 @@ def post():
     yy = list(map(lambda x: int(x*100), yy))
     all_result = dict(zip(Daikubun, yy))
 
+    df_result = pd.DataFrame(data=yy, columns=Daikubun)
+
     return render_template(
         'index.html',
         result1=out_put,
         result2=all_result,
-        result3=sample_text,
-        # result4=words,
+        result3=sample_text, # 判定するオリジナルのテキスト
+        result4=df_result,
+        # result4=words, # トークナイズされたテキスト
         )
 
 if __name__ == '__main__':
