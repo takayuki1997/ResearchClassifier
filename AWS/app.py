@@ -17,6 +17,19 @@ loaded_tokenizer = BertJapaneseTokenizer.from_pretrained(data_path)
 Daikubun = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ", "Ｇ", "Ｈ", "Ｉ", "Ｊ", "Ｋ"]
 
 
+@app.route('/hw3beta', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
+        csv_list = csv_data.splitlines() # 改行コードで分割
+        csv_reader = csv.reader(csv_list) # CSVリーダーを作成
+        csv_data_list = list(csv_reader) # CSVデータを2次元リストとして取得
+        # ここからcsv_data_listを使った処理を記述
+        # ...
+    return render_template('hw3beta.html',
+        data=csv_data_list,
+        )
+
 @app.route('/', methods=['GET'])
 def get():
     return render_template('index.html')
@@ -58,19 +71,6 @@ def post():
         # result4=words, # トークナイズされたテキスト
         )
 
-
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    if request.method == 'POST':
-        csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
-        csv_list = csv_data.splitlines() # 改行コードで分割
-        csv_reader = csv.reader(csv_list) # CSVリーダーを作成
-        csv_data_list = list(csv_reader) # CSVデータを2次元リストとして取得
-        # ここからcsv_data_listを使った処理を記述
-        # ...
-    return render_template('hw3beta.html',
-        data=csv_data_list,
-        )
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
