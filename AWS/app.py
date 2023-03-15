@@ -19,11 +19,11 @@ Daikubun = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ", "Ｇ", "Ｈ", "Ｉ", "Ｊ"
 
 
 @app.route('/hw3beta', methods=['GET'])
-def get():
+def get2():
     return render_template('hw3beta.html')
 
 @app.route('/hw3beta', methods=['POST'])
-def index():
+def post2():
     if request.method == 'POST':
         csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
         csv_list = csv_data.splitlines() # 改行コードで分割
