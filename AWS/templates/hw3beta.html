@@ -22,14 +22,28 @@
 <h2>Hello World3 (β)</h2> 
 
 
-<form action="/" method="POST" enctype="multipart/form-data"> <!-- フォームにenctype属性を追加 -->
-  <input type="file" name="csvfile"> <!-- CSVファイル選択ボタン -->
-  <input type="submit" value="Upload CSV"> <!-- CSVファイル送信ボタン -->
+<form action="/" method="POST" enctype="multipart/form-data">
+  <input type="file" name="file"><br><br>
+  <input type="submit" value="Upload">
 </form>
 
-
-
+{% if data %}
+<h2>Data</h2>
 <table>
+    {% for row in data %}
+        <tr>
+            {% for col in row %}
+                <td>{{ col }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+
+
+
+<!-- <table>
   <TR>
     <TD align="center">No.</TD>
     <TD align="center">大区分</TD>
@@ -44,7 +58,7 @@
       <TD align="right">{{ all_result[key] }}</TD>
     {% endfor %}
   </TR>
-</table>
+</table> -->
 
 <!-- <table>
   {% for i in result4 %}
