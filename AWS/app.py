@@ -32,8 +32,11 @@ def post2():
         csv_data_list = list(csv_reader) # CSVデータを2次元リストとして取得
         # ここからcsv_data_listを使った処理を記述
         # ...
+        print(csv_data_list)
+
     return render_template('hw3beta.html',
-        data=csv_data_list,
+        # data=csv_data_list,
+        data=['あああ', 'いいい', 'ううう'],
         )
 
 @app.route('/', methods=['GET'])
