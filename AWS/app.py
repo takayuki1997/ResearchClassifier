@@ -17,7 +17,12 @@ loaded_tokenizer = BertJapaneseTokenizer.from_pretrained(data_path)
 Daikubun = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ", "Ｇ", "Ｈ", "Ｉ", "Ｊ", "Ｋ"]
 
 
-@app.route('/hw3beta', methods=['GET', 'POST'])
+
+@app.route('/hw3beta', methods=['GET'])
+def get():
+    return render_template('hw3beta.html')
+
+@app.route('/hw3beta', methods=['POST'])
 def index():
     if request.method == 'POST':
         csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
