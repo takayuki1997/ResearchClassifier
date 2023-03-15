@@ -32,6 +32,8 @@ def post2():
         csv_data_list = list(csv_reader) # CSVデータを2次元リストとして取得
         # ここからcsv_data_listを使った処理を記述
         # ...
+        print(type(csv_data_list))
+        print(len(csv_data_list))
         print(csv_data_list)
 
     return render_template('hw3beta.html',
