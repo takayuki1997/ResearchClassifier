@@ -26,22 +26,17 @@ def get2():
 @app.route('/hw3beta', methods=['POST'])
 def post2():
     if request.method == 'POST':
-        print(' [1]')
         csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
-        print(' [2]')
         csv_list = csv_data.splitlines() # 改行コードで分割
-        print(' [3]')
         csv_reader = csv.reader(csv_list) # CSVリーダーを作成
-        print(' [4]')
         csv_data_list = list(csv_reader) # CSVデータを2次元リストとして取得
-        print(' [5]')
         # ここからcsv_data_listを使った処理を記述
         # ...
         print(csv_data_list)
 
     return render_template('hw3beta.html',
-        # data=csv_data_list,
-        data=['あああ', 'いいい', 'ううう'],
+        data=csv_data_list,
+        # data=['あああ', 'いいい', 'ううう'],
         )
 
 @app.route('/', methods=['GET'])
