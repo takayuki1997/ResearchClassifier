@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HW2(β)</title>
+    <title>HW3(β)</title>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HMKKELYV14"></script>
@@ -19,19 +19,15 @@
 
 
 <body>
-<h2>Hello World2 (β)</h2> 
+<h2>Hello World3 (β)</h2> 
 
-<p>
-  <a href="https://kaken.nii.ac.jp" target="_blank">
-    <img src="static/K.png" alt="科研費データベース" title="科研費データベース">
-  </a>
-</p>
 
-<b>（概要）</b></br>
-<form action="/" method="POST" enctype="multipart/form-data">
-    <textarea name="name" required="required" rows="12" cols="42" autofocus></textarea></br>
-    <input type="submit" value="submit" style="cursor:pointer">
+<form action="/" method="POST" enctype="multipart/form-data"> <!-- フォームにenctype属性を追加 -->
+  <input type="file" name="csvfile"> <!-- CSVファイル選択ボタン -->
+  <input type="submit" value="Upload CSV"> <!-- CSVファイル送信ボタン -->
 </form>
+
+
 
 <table>
   <TR>
@@ -59,8 +55,6 @@
 		</tr>
 	{% endfor %}
 </table> -->
-
-<p>{{ sample_text }}</p>
 
 </body>
 </html>
