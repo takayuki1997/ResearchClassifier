@@ -29,7 +29,8 @@
 
 {% if data %}
 <h2>Data</h2>
-<table>
+{{ data }}
+<!-- <table>
     {% for row in data %}
         <tr>
             {% for col in row %}
@@ -37,7 +38,7 @@
             {% endfor %}
         </tr>
     {% endfor %}
-</table>
+</table> -->
 {% endif %}
 
 

@@ -26,6 +26,7 @@ def get2():
 @app.route('/hw3beta', methods=['POST'])
 def post2():
     if request.method == 'POST':
+        print('[1]')
         csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
         csv_list = csv_data.splitlines() # 改行コードで分割
         csv_reader = csv.reader(csv_list) # CSVリーダーを作成
