@@ -27,9 +27,7 @@ def get2():
 def post2():
     if request.method == 'POST':
         print(' [1]')
-        # csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
-        # csv_data = request.files['csvfile'].read() # CSVファイルを文字列として取得
-        csv_data = request.files['file'] # CSVファイルを文字列として取得
+        csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
         print(' [2]')
         csv_list = csv_data.splitlines() # 改行コードで分割
         print(' [3]')
