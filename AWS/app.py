@@ -59,7 +59,7 @@ def post():
         )
 
 
-@app.route('/hw3beta.html', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
