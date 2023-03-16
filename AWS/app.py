@@ -30,35 +30,16 @@ def post2():
     if request.method == 'POST':
         csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
         csv_df = pd.read_csv(io.StringIO(csv_data), header=None) # dataframeに変換
-        num_data = len(csv_df)
-        print(csv_df)
-        print(num_df)
+        num_df = len(csv_df)
         
-        result_arr = np.zeros((num_df, num_Daikubun))
-        print(result_arr)
+        result_arr = np.zeros((num_df, num_Daikubun), dtype = int)
         
-        
-        csv_list = csv_data.splitlines() # 改行コードで分割
-        csv_reader = csv.reader(csv_list) # CSVリーダーを作成
-        csv_data_list = list(csv_reader) # CSVデータを2次元リストとして取得
-        # ここからcsv_data_listを使った処理を記述
-        # ...
-        # print(type(csv_data_list)) # for debug
-        # print(len(csv_data_list)) # for debug
-        # print(csv_data_list) # for debug
-
-        # num_data = len(csv_data_list)
-        # result_mat = [[0 for j in range(num_Daikubun)] for i in range(num_data)]
-        # print(type(result_mat))
-        # print(len(result_mat))
-        # print(result_mat)
         max_list = [None] * num_df
 
 
         for i in range(num_df):
 
-            sample_text = csv_df[i]
-            # sample_text = csv_data_list[i][0]
+            sample_text = csv_df.iloc[i,0]
 
             # Abst中の改行コードを削除
             sample_text = sample_text.replace('\r', '')
@@ -76,7 +57,6 @@ def post2():
             pred = y.argmax(-1)  # 最大値のインデックス
             max_kubun = Daikubun[pred] # 最大値の大区分のアルファベット
 
-
             m = torch.nn.Softmax(dim=1) # Softmax関数で確率に変換
             y = m(y)
             yy = y.tolist()[0]
@@ -84,16 +64,14 @@ def post2():
             # all_result = dict(zip(Daikubun, yy))
             
             max_list[i] = max_kubun
-            # print(yy)
             result_arr[i] = yy
             
-        print(result_arr)
+        result_arr = result_arr.tolist()
 
 
     return render_template('hw3beta.html',
         result_arr=result_arr,
         max_list=max_list,
-        # data=['あああ', 'いいい', 'ううう'],
         )
 
 @app.route('/', methods=['GET'])

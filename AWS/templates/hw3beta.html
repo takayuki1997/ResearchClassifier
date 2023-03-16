@@ -27,18 +27,26 @@
   <input type="submit" value="Upload">
 </form>
 
-{% if result_mat %}
+{% if result_arr %}
 <h2>Data</h2>
-<!-- {{ data }} -->
-<table>
+  <table>
     {% for row in result_arr %}
-        <tr>
-            {% for col in row %}
-                <td>{{ col }}</td>
-            {% endfor %}
-        </tr>
+      <tr>
+        {% for col in row %}
+          <td align="right">{{ col }}</td>
+        {% endfor %}
+      </tr>
     {% endfor %}
-</table>
+  </table>
+
+  <table>
+    {% for max_kubun in max_list %}
+    <tr>
+      <td align="center">{{ max_kubun }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
 {% endif %}
 
 
