@@ -43,7 +43,7 @@ def post2():
 
         for i in range(num_data):
 
-            sample_text = csv_data_list[i]
+            sample_text = csv_data_list[i][0]
 
             # Abst中の改行コードを削除
             sample_text = sample_text.replace('\r', '')
