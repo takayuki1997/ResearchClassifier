@@ -27,11 +27,11 @@
   <input type="submit" value="Upload">
 </form>
 
-{% if data %}
+{% if result_mat %}
 <h2>Data</h2>
 <!-- {{ data }} -->
 <table>
-    {% for row in data %}
+    {% for row in result_mat %}
         <tr>
             {% for col in row %}
                 <td>{{ col }}</td>

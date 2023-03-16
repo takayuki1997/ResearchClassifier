@@ -71,15 +71,18 @@ def post2():
             y = m(y)
             yy = y.tolist()[0]
             yy = list(map(lambda x: int(x*100), yy))
-            all_result = dict(zip(Daikubun, yy))
+            # all_result = dict(zip(Daikubun, yy))
             
             max_list[i] = max_kubun
             print(yy)
             result_mat[:][i] = yy
+            
+        print(result_mat)
 
 
     return render_template('hw3beta.html',
-        data=result_mat,
+        result_mat=result_mat,
+        max_list=max_list,
         # data=['あああ', 'いいい', 'ううう'],
         )
 
