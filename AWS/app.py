@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 import torch
 from transformers import BertForSequenceClassification, BertJapaneseTokenizer
 import pandas as pd
-import csv io
+import csv, io
 
 app = Flask(__name__)
 
