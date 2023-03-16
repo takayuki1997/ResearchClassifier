@@ -38,6 +38,9 @@ def post2():
 
         num_data = len(csv_data)
         result_mat = [[0 for j in range(num_data)] for i in range(2)]
+        print(type(result_mat))
+        print(len(result_mat))
+        print(result_mat)
         max_list = [None] * 5
 
 
@@ -69,6 +72,7 @@ def post2():
             all_result = dict(zip(Daikubun, yy))
             
             max_list[i] = max_kubun
+            print(yy)
             result_mat[:][i] = yy
 
 
