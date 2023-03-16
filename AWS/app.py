@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 import torch
 from transformers import BertForSequenceClassification, BertJapaneseTokenizer
 import pandas as pd
-import csv
+import csv io
 
 app = Flask(__name__)
 
@@ -28,6 +28,10 @@ def get2():
 def post2():
     if request.method == 'POST':
         csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
+        
+        df = pd.read_csv(StringIO(csv_data), header=None) # dataframeに変換
+        print(df)
+        
         csv_list = csv_data.splitlines() # 改行コードで分割
         csv_reader = csv.reader(csv_list) # CSVリーダーを作成
         csv_data_list = list(csv_reader) # CSVデータを2次元リストとして取得
