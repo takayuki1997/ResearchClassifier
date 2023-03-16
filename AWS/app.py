@@ -5,6 +5,7 @@ import torch
 from transformers import BertForSequenceClassification, BertJapaneseTokenizer
 import pandas as pd
 import csv, io
+import numpy as np
 
 app = Flask(__name__)
 
@@ -28,9 +29,14 @@ def get2():
 def post2():
     if request.method == 'POST':
         csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
+        csv_df = pd.read_csv(io.StringIO(csv_data), header=None) # dataframeに変換
+        num_data = len(csv_df)
+        print(csv_df)
+        print(num_df)
         
-        df = pd.read_csv(StringIO(csv_data), header=None) # dataframeに変換
-        print(df)
+        result_arr = np.zeros((num_df, num_Daikubun))
+        print(result_arr)
+        
         
         csv_list = csv_data.splitlines() # 改行コードで分割
         csv_reader = csv.reader(csv_list) # CSVリーダーを作成
@@ -41,18 +47,18 @@ def post2():
         # print(len(csv_data_list)) # for debug
         # print(csv_data_list) # for debug
 
-        num_data = len(csv_data_list)
-        result_mat = [[0 for j in range(num_Daikubun)] for i in range(num_data)]
-        # result_mat = [[0 for j in range(num_data)] for i in range(2)]
-        print(type(result_mat))
-        print(len(result_mat))
-        print(result_mat)
-        max_list = [None] * num_data
+        # num_data = len(csv_data_list)
+        # result_mat = [[0 for j in range(num_Daikubun)] for i in range(num_data)]
+        # print(type(result_mat))
+        # print(len(result_mat))
+        # print(result_mat)
+        max_list = [None] * num_df
 
 
-        for i in range(num_data):
+        for i in range(num_df):
 
-            sample_text = csv_data_list[i][0]
+            sample_text = csv_df[i]
+            # sample_text = csv_data_list[i][0]
 
             # Abst中の改行コードを削除
             sample_text = sample_text.replace('\r', '')
@@ -78,14 +84,14 @@ def post2():
             # all_result = dict(zip(Daikubun, yy))
             
             max_list[i] = max_kubun
-            print(yy)
-            result_mat[:][i] = yy
+            # print(yy)
+            result_arr[i] = yy
             
-        print(result_mat)
+        print(result_arr)
 
 
     return render_template('hw3beta.html',
-        result_mat=result_mat,
+        result_arr=result_arr,
         max_list=max_list,
         # data=['あああ', 'いいい', 'ううう'],
         )
