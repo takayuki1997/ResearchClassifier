@@ -37,7 +37,7 @@ def post2():
         # print(len(csv_data_list)) # for debug
         # print(csv_data_list) # for debug
 
-        num_data = len(csv_data)
+        num_data = len(csv_data_list)
         result_mat = [[0 for j in range(num_Daikubun)] for i in range(num_data)]
         # result_mat = [[0 for j in range(num_data)] for i in range(2)]
         print(type(result_mat))
