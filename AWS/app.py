@@ -32,12 +32,48 @@ def post2():
         csv_data_list = list(csv_reader) # CSVデータを2次元リストとして取得
         # ここからcsv_data_listを使った処理を記述
         # ...
-        print(type(csv_data_list))
-        print(len(csv_data_list))
-        print(csv_data_list)
+        print(type(csv_data_list)) # for debug
+        print(len(csv_data_list)) # for debug
+        # print(csv_data_list) # for debug
+
+        num_data = len(csv_data)
+        result_mat = [[0 for j in range(num_data)] for i in range(2)]
+        max_list = [None] * 5
+
+
+        for i in range(num_data):
+
+            sample_text = csv_data_list[i]
+
+            # Abst中の改行コードを削除
+            sample_text = sample_text.replace('\r', '')
+            sample_text = sample_text.replace('\n', '')
+
+            max_length = 512
+            words = loaded_tokenizer.tokenize(sample_text)
+            word_ids = loaded_tokenizer.convert_tokens_to_ids(words)  # 単語をインデックスに変換
+            word_tensor = torch.tensor([word_ids[:max_length]])  # テンソルに変換
+
+            # x = word_tensor.cuda()  # GPU対応時はこちらを使う
+            x = word_tensor # GPU未対応時はこちらを使う
+            y = loaded_model(x)  # 予測
+            y = y[0]
+            pred = y.argmax(-1)  # 最大値のインデックス
+            max_kubun = Daikubun[pred] # 最大値の大区分のアルファベット
+
+
+            m = torch.nn.Softmax(dim=1) # Softmax関数で確率に変換
+            y = m(y)
+            yy = y.tolist()[0]
+            yy = list(map(lambda x: int(x*100), yy))
+            all_result = dict(zip(Daikubun, yy))
+            
+            max_list[i] = max_kubun
+            result_mat[,i] = yy
+
 
     return render_template('hw3beta.html',
-        data=csv_data_list,
+        data=result_mat,
         # data=['あああ', 'いいい', 'ううう'],
         )
 
