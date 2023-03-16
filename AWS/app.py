@@ -16,7 +16,8 @@ loaded_tokenizer = BertJapaneseTokenizer.from_pretrained(data_path)
 
 # 大区分の名称
 Daikubun = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ", "Ｇ", "Ｈ", "Ｉ", "Ｊ", "Ｋ"]
-
+num_Daikubun = len(Daikubun)
+print('num_Daikubun: ', num_Daikubun)
 
 
 @app.route('/hw3beta', methods=['GET'])
@@ -32,12 +33,12 @@ def post2():
         csv_data_list = list(csv_reader) # CSVデータを2次元リストとして取得
         # ここからcsv_data_listを使った処理を記述
         # ...
-        print(type(csv_data_list)) # for debug
-        print(len(csv_data_list)) # for debug
+        # print(type(csv_data_list)) # for debug
+        # print(len(csv_data_list)) # for debug
         # print(csv_data_list) # for debug
 
         num_data = len(csv_data)
-        result_mat = [[0 for j in range(len(Daikubun))] for i in range(num_data)]
+        result_mat = [[0 for j in range(num_Daikubun)] for i in range(num_data)]
         # result_mat = [[0 for j in range(num_data)] for i in range(2)]
         print(type(result_mat))
         print(len(result_mat))
