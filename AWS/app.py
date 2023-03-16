@@ -37,11 +37,12 @@ def post2():
         # print(csv_data_list) # for debug
 
         num_data = len(csv_data)
-        result_mat = [[0 for j in range(num_data)] for i in range(2)]
+        result_mat = [[0 for j in range(len(Daikubun))] for i in range(num_data)]
+        # result_mat = [[0 for j in range(num_data)] for i in range(2)]
         print(type(result_mat))
         print(len(result_mat))
         print(result_mat)
-        max_list = [None] * 5
+        max_list = [None] * num_data
 
 
         for i in range(num_data):
