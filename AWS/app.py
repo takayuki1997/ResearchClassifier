@@ -69,7 +69,7 @@ def post2():
             all_result = dict(zip(Daikubun, yy))
             
             max_list[i] = max_kubun
-            result_mat[i][:] = yy
+            result_mat[:][i] = yy
 
 
     return render_template('hw3beta.html',
