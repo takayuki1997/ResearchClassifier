@@ -16,7 +16,8 @@ loaded_model = BertForSequenceClassification.from_pretrained(data_path)
 loaded_tokenizer = BertJapaneseTokenizer.from_pretrained(data_path)
 
 # 大区分の名称
-Daikubun = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ", "Ｇ", "Ｈ", "Ｉ", "Ｊ", "Ｋ"]
+Daikubun = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"] # 半角
+# Daikubun = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ", "Ｇ", "Ｈ", "Ｉ", "Ｊ", "Ｋ"] # 全角
 num_Daikubun = len(Daikubun)
 print('num_Daikubun: ', num_Daikubun)
 
@@ -65,13 +66,17 @@ def post2():
             
             max_list[i] = max_kubun
             result_arr[i] = yy
-            
+        
+        result_df  = pd.DataFrame(result_arr, columns=Daikubun, index=[x+1 for x in range(num_df)])
         result_arr = result_arr.tolist()
+        
+        print(result_df)
 
 
     return render_template('hw3beta.html',
         result_arr=result_arr,
         max_list=max_list,
+        result_df=result_df,
         )
 
 @app.route('/', methods=['GET'])
