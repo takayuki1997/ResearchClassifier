@@ -33,7 +33,9 @@
     <input type="submit" value="submit" style="cursor:pointer">
 </form>
 
-<h2>{{ max_kubun }}</h2>
+{% if max_kubun %}
+<h2>大区分{{ max_kubun }}</h2>
+
 
 <table>
   {% for key in all_result %}
@@ -45,6 +47,8 @@
 </table>
 
 <p>{{ sample_text }}</p>
+
+{% endif %}
 
 multiple? Go <a href="hw3beta.html">hw3(β)</a>
 
