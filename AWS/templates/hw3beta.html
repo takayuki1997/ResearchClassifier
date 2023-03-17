@@ -21,7 +21,6 @@
 <body>
 <h2>Hello World3 (β)</h2> 
 
-<!-- <form action="/" method="POST" enctype="multipart/form-data"> -->
 <form action="" method="POST" enctype="multipart/form-data">
   <input type="file" name="csvfile"><br><br>
   <input type="submit" value="Upload">
@@ -29,25 +28,6 @@
 
 {% if df_values %}
 <h2>Data</h2>
-<!-- <table>
-    {% for row in result_arr %}
-      <tr>
-        {% for col in row %}
-          <td align="right">{{ col }}</td>
-        {% endfor %}
-      </tr>
-    {% endfor %}
-  </table>
-
-  <table>
-    {% for max_kubun in max_list %}
-    <tr>
-      <td align="center">{{ max_kubun }}</td>
-    </tr>
-    {% endfor %}
-  </table> -->
-
-
 
   <table>
     <thead>
@@ -60,40 +40,7 @@
 		</tbody>
   </table>
 
-
-
-
 {% endif %}
-
-
-
-
-<!-- <table>
-  <TR>
-    <TD align="center">No.</TD>
-    <TD align="center">大区分</TD>
-    {% for key in all_result %}
-      <TD align="center">{{ key }}</TD>
-    {% endfor %}
-  </TR>
-  <TR>
-    <TD align="right"">1</TD>
-    <TD align="center">{{ max_kubun }}</TD>
-    {% for key in all_result %}
-      <TD align="right">{{ all_result[key] }}</TD>
-    {% endfor %}
-  </TR>
-</table> -->
-
-<!-- <table>
-  {% for i in result4 %}
-		<tr>
-			{% for j in i %}
-			  <td>{{ j }}</td>
-			{% endfor %}
-		</tr>
-	{% endfor %}
-</table> -->
 
 </body>
 </html>

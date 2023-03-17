@@ -43,7 +43,6 @@ def cat_estimation(sample_text, Daikubun):
     y = m(y)
     yy = y.tolist()[0]
     yy = list(map(lambda x: int(x*100), yy))
-    # all_result = dict(zip(Daikubun, yy))
     
     return max_kubun, yy
 
@@ -58,47 +57,21 @@ def post2():
         csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
         csv_df = pd.read_csv(io.StringIO(csv_data), header=None) # dataframeに変換
         num_df = len(csv_df) # テキストの件数をカウント
-        
-        # result_arr = np.zeros((num_df, num_Daikubun), dtype = int) # 分類推定の結果を入れるnumpy arrayを準備
         result_mat = [[None] * (num_Daikubun+2) for _ in range(num_df)] # 分類推定の結果を入れる２次元リストを準備
-        # max_list = [None] * num_df # 推定した大区分を格納するリストを準備
-        # text_head = [None] * num_df # sample_textの冒頭部分を取り出す
-        # text_head = max_list # sample_textの冒頭部分を取り出す
-
 
         for i in range(num_df):
-
             sample_text = csv_df.iloc[i,0] # dataframeから一つのテキストを取り出す
             
             max_kubun, yy = cat_estimation(sample_text, Daikubun)
             
-            # max_list[i] = max_kubun
-            # result_arr[i] = yy
-            # text_head[i] = sample_text[:10] + '...'
-            
             result_mat[i][0] = max_kubun
             result_mat[i][1:-1] = yy
             result_mat[i][-1] = sample_text[:10] + '...'
-        
-        
-        # table_value = result_arr.tolist()
-        
-        
-        # max_list_df = pd.DataFrame(max_list, columns=['max'], index=[x+1 for x in range(num_df)])
-        # result_df = pd.DataFrame(result_arr, columns=Daikubun, index=[x+1 for x in range(num_df)])
-        # text_head = pd.DataFrame(text_head, columns=['text'], index=[x+1 for x in range(num_df)])
-        # result_df = pd.concat([max_list_df, result_df, text_head], axis=1)
-        #print(result_df)
-        
-        # result_arr = result_arr.tolist()
 
     return render_template('hw3beta.html',
-        # result_arr=result_arr,
-        # max_list=max_list,
         df_values = result_mat,
         df_columns = ['max'] + Daikubun + ['text'],
         df_index = [x+1 for x in range(num_df)],
-        # result_df=result_df,
         )
 
 
@@ -114,14 +87,10 @@ def post():
     
     all_result = dict(zip(Daikubun, yy))
 
-    # df_result = pd.DataFrame(data=yy, index=Daikubun)
-
     return render_template('index.html',
         max_kubun=max_kubun,
         all_result=all_result,
         sample_text=sample_text, # 判定するオリジナルのテキスト
-        # result4=df_result,
-        # result4=words, # トークナイズされたテキスト
         )
 
 
