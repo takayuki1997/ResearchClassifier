@@ -22,6 +22,32 @@ num_Daikubun = len(Daikubun)
 print('num_Daikubun: ', num_Daikubun)
 
 
+def cat_estimation(sample_text, Daikubun):
+    # Abst中の改行コードを削除
+    sample_text = sample_text.replace('\r', '')
+    sample_text = sample_text.replace('\n', '')
+
+    max_length = 512
+    words = loaded_tokenizer.tokenize(sample_text)
+    word_ids = loaded_tokenizer.convert_tokens_to_ids(words)  # 単語をインデックスに変換
+    word_tensor = torch.tensor([word_ids[:max_length]])  # テンソルに変換
+
+    # x = word_tensor.cuda()  # GPU対応時はこちらを使う
+    x = word_tensor # GPU未対応時はこちらを使う
+    y = loaded_model(x)  # 予測
+    y = y[0]
+    pred = y.argmax(-1)  # 最大値のインデックス
+    max_kubun = Daikubun[pred] # 最大値の大区分のアルファベット
+
+    m = torch.nn.Softmax(dim=1) # Softmax関数で確率に変換
+    y = m(y)
+    yy = y.tolist()[0]
+    yy = list(map(lambda x: int(x*100), yy))
+    # all_result = dict(zip(Daikubun, yy))
+    
+    return max_kubun, yy
+
+
 @app.route('/hw3beta', methods=['GET'])
 def get2():
     return render_template('hw3beta.html')
@@ -42,27 +68,29 @@ def post2():
 
             sample_text = csv_df.iloc[i,0]
 
-            # Abst中の改行コードを削除
-            sample_text = sample_text.replace('\r', '')
-            sample_text = sample_text.replace('\n', '')
+            # # Abst中の改行コードを削除
+            # sample_text = sample_text.replace('\r', '')
+            # sample_text = sample_text.replace('\n', '')
 
-            max_length = 512
-            words = loaded_tokenizer.tokenize(sample_text)
-            word_ids = loaded_tokenizer.convert_tokens_to_ids(words)  # 単語をインデックスに変換
-            word_tensor = torch.tensor([word_ids[:max_length]])  # テンソルに変換
+            # max_length = 512
+            # words = loaded_tokenizer.tokenize(sample_text)
+            # word_ids = loaded_tokenizer.convert_tokens_to_ids(words)  # 単語をインデックスに変換
+            # word_tensor = torch.tensor([word_ids[:max_length]])  # テンソルに変換
 
-            # x = word_tensor.cuda()  # GPU対応時はこちらを使う
-            x = word_tensor # GPU未対応時はこちらを使う
-            y = loaded_model(x)  # 予測
-            y = y[0]
-            pred = y.argmax(-1)  # 最大値のインデックス
-            max_kubun = Daikubun[pred] # 最大値の大区分のアルファベット
+            # # x = word_tensor.cuda()  # GPU対応時はこちらを使う
+            # x = word_tensor # GPU未対応時はこちらを使う
+            # y = loaded_model(x)  # 予測
+            # y = y[0]
+            # pred = y.argmax(-1)  # 最大値のインデックス
+            # max_kubun = Daikubun[pred] # 最大値の大区分のアルファベット
 
-            m = torch.nn.Softmax(dim=1) # Softmax関数で確率に変換
-            y = m(y)
-            yy = y.tolist()[0]
-            yy = list(map(lambda x: int(x*100), yy))
+            # m = torch.nn.Softmax(dim=1) # Softmax関数で確率に変換
+            # y = m(y)
+            # yy = y.tolist()[0]
+            # yy = list(map(lambda x: int(x*100), yy))
             # all_result = dict(zip(Daikubun, yy))
+            
+            max_kubun, yy = cat_estimation(sample_text, Daikubun)
             
             max_list[i] = max_kubun
             result_arr[i] = yy
@@ -87,27 +115,29 @@ def get():
 def post():
     sample_text = request.form['name']
     
-    # Abst中の改行コードを削除
-    sample_text = sample_text.replace('\r', '')
-    sample_text = sample_text.replace('\n', '')
+    # # Abst中の改行コードを削除
+    # sample_text = sample_text.replace('\r', '')
+    # sample_text = sample_text.replace('\n', '')
 
-    max_length = 512
-    words = loaded_tokenizer.tokenize(sample_text)
-    word_ids = loaded_tokenizer.convert_tokens_to_ids(words)  # 単語をインデックスに変換
-    word_tensor = torch.tensor([word_ids[:max_length]])  # テンソルに変換
+    # max_length = 512
+    # words = loaded_tokenizer.tokenize(sample_text)
+    # word_ids = loaded_tokenizer.convert_tokens_to_ids(words)  # 単語をインデックスに変換
+    # word_tensor = torch.tensor([word_ids[:max_length]])  # テンソルに変換
 
-    # x = word_tensor.cuda()  # GPU対応時はこちらを使う
-    x = word_tensor # GPU未対応時はこちらを使う
-    y = loaded_model(x)  # 予測
-    y = y[0]
-    pred = y.argmax(-1)  # 最大値のインデックス
-    max_kubun = Daikubun[pred] # 最大値の大区分のアルファベット
+    # # x = word_tensor.cuda()  # GPU対応時はこちらを使う
+    # x = word_tensor # GPU未対応時はこちらを使う
+    # y = loaded_model(x)  # 予測
+    # y = y[0]
+    # pred = y.argmax(-1)  # 最大値のインデックス
+    # max_kubun = Daikubun[pred] # 最大値の大区分のアルファベット
 
 
-    m = torch.nn.Softmax(dim=1) # Softmax関数で確率に変換
-    y = m(y)
-    yy = y.tolist()[0]
-    yy = list(map(lambda x: int(x*100), yy))
+    # m = torch.nn.Softmax(dim=1) # Softmax関数で確率に変換
+    # y = m(y)
+    # yy = y.tolist()[0]
+    # yy = list(map(lambda x: int(x*100), yy))
+    max_kubun, yy = cat_estimation(sample_text, Daikubun)
+    
     all_result = dict(zip(Daikubun, yy))
 
     # df_result = pd.DataFrame(data=yy, index=Daikubun)
