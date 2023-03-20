@@ -15,7 +15,6 @@
 
   gtag('config', 'G-HMKKELYV14');
 </script>
-
 </head>
 
 
@@ -28,29 +27,27 @@
 </form>
 
 {% if df_values %}
-
-  <table>
-    <thead>
-      <tr>
-        <th>No.</th>
-        {%- for i in df_columns %}
-        <th>{{ i|e }}</th>
-        {%- endfor %}
-      </tr>
-    </thead>
-    
-    <tbody>
-      {%- for i in df_values %}
-      <tr>
-        <th>{{ df_index[loop.index0]|e }}</th>
-        {% for j in i %}
-        <td>{{ j|e }}</td>
-        {% endfor %}
-      </tr>
+<table>
+  <thead>
+    <tr>
+      <th>No.</th>
+      {%- for i in df_columns %}
+      <th>{{ i|e }}</th>
       {%- endfor %}
-    </tbody>
-  </table>
-
+    </tr>
+  </thead>
+  
+  <tbody>
+    {%- for i in df_values %}
+    <tr>
+      <th>{{ df_index[loop.index0]|e }}</th>
+      {% for j in i %}
+      <td>{{ j|e }}</td>
+      {% endfor %}
+    </tr>
+    {%- endfor %}
+  </tbody>
+</table>
 {% endif %}
 
 </body>
