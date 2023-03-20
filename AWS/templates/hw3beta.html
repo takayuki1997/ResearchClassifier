@@ -28,16 +28,24 @@
 </form>
 
 {% if df_values %}
-<h2>Data</h2>
 
   <table>
     <thead>
-			<tr><td></td>{%- for i in df_columns %}<th>{{ i|e }}</th>{%- endfor %}</tr>
+			<tr>
+        <th>No.</th>
+        {%- for i in df_columns %}<th>
+          {{ i|e }}
+        </th>{%- endfor %}
+      </tr>
 		</thead>
+
 		<tbody>
-			{%- for i in df_values %}
-			<tr><th align="right">{{ df_index[loop.index0]|e }}</th>{% for j in i %}<td align="right">{{ j|e }}</td>{% endfor %}</tr>
-			{%- endfor %}
+			{%- for i in df_values %}<tr>
+        <th>{{ df_index[loop.index0]|e }}</th>
+        {% for j in i %}<td>
+          {{ j|e }}
+        </td>{% endfor %}
+      </tr>{%- endfor %}
 		</tbody>
   </table>
 
