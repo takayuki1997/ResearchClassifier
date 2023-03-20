@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HW3(β)</title>
-    <link rel="stylesheet" href="static/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HW3(β)</title>
+  <link rel="stylesheet" href="static/styles.css">
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HMKKELYV14"></script>
@@ -31,22 +31,24 @@
 
   <table>
     <thead>
-			<tr>
+      <tr>
         <th>No.</th>
-        {%- for i in df_columns %}<th>
-          {{ i|e }}
-        </th>{%- endfor %}
+        {%- for i in df_columns %}
+        <th>{{ i|e }}</th>
+        {%- endfor %}
       </tr>
-		</thead>
-
-		<tbody>
-			{%- for i in df_values %}<tr>
+    </thead>
+    
+    <tbody>
+      {%- for i in df_values %}
+      <tr>
         <th>{{ df_index[loop.index0]|e }}</th>
-        {% for j in i %}<td>
-          {{ j|e }}
-        </td>{% endfor %}
-      </tr>{%- endfor %}
-		</tbody>
+        {% for j in i %}
+        <td>{{ j|e }}</td>
+        {% endfor %}
+      </tr>
+      {%- endfor %}
+    </tbody>
   </table>
 
 {% endif %}
