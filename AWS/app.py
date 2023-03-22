@@ -21,26 +21,25 @@ Daikubun = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"] # 半角
 num_Daikubun = len(Daikubun)
 print('num_Daikubun: ', num_Daikubun)
 
+# Softmax関数のインスタンス化
+softmax = torch.nn.Softmax(dim=1) # Softmax関数で確率に変換
 
 def cat_estimation(sample_text, Daikubun):
-    # Abst中の改行コードを削除
-    sample_text = sample_text.replace('\r', '')
-    sample_text = sample_text.replace('\n', '')
+    # 改行コードを削除
+    sample_text = sample_text.replace('\r', '').replace('\n', '')
 
     max_length = 512
     words = loaded_tokenizer.tokenize(sample_text)
     word_ids = loaded_tokenizer.convert_tokens_to_ids(words)  # 単語をインデックスに変換
     word_tensor = torch.tensor([word_ids[:max_length]])  # テンソルに変換
 
-    # x = word_tensor.cuda()  # GPU対応時はこちらを使う
-    x = word_tensor # GPU未対応時はこちらを使う
-    y = loaded_model(x)  # 予測
+    # y = loaded_model(word_tensor.cuda())  # 予測 GPU対応時はこちらを使う
+    y = loaded_model(word_tensor)  # 予測 GPU未対応時はこちらを使う
     y = y[0]
     pred = y.argmax(-1)  # 最大値のインデックス
     max_kubun = Daikubun[pred] # 最大値の大区分のアルファベット
 
-    m = torch.nn.Softmax(dim=1) # Softmax関数で確率に変換
-    y = m(y)
+    y = softmax(y) # softmaxインスタンスで確率に変換
     yy = y.tolist()[0]
     yy = list(map(lambda x: int(x*100), yy))
     
@@ -66,7 +65,7 @@ def post2():
             
             result_mat[i][0] = max_kubun
             result_mat[i][1:-1] = yy
-            result_mat[i][-1] = sample_text[:10] + '...'
+            result_mat[i][-1] = sample_text[:10] + '…'
 
     return render_template('hw3beta.html',
         df_values = result_mat,
