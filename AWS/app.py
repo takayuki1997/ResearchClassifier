@@ -58,6 +58,9 @@ def post2():
         if csvfile is None or csvfile.filename == '':
             return render_template('hw3beta.html', error_message = 'ファイルが選択されていません。')
         
+        if not csvfile.filename.endswith('.csv'):
+            return render_template('hw3beta.html', error_message = 'CSVファイルのみアップロードしてください。')
+        
         csv_data = csvfile.read().decode('utf-8') # CSVファイルを文字列として取得
         csv_df = pd.read_csv(io.StringIO(csv_data), header=None) # dataframeに変換
         num_df = len(csv_df) # テキストの件数をカウント

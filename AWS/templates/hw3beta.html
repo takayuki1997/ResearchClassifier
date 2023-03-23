@@ -22,15 +22,13 @@
 <h2>Hello World3 (β)</h2> 
 
 <form action="" method="POST" enctype="multipart/form-data">
-  <input type="file" name="csvfile"><br><br>
+  <input type="file" name="csvfile" accept=".csv"><br><br>
   <input type="submit" value="Upload">
 </form>
-
 
 {% if error_message %}
   <p>{{ error_message }}</p>
 {% endif %}
-
 
 {% if df_values %}
 <table>
