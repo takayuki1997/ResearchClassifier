@@ -53,7 +53,12 @@ def get2():
 @app.route('/hw3beta.html', methods=['POST'])
 def post2():
     if request.method == 'POST':
-        csv_data = request.files['csvfile'].read().decode('utf-8') # CSVファイルを文字列として取得
+        csvfile = request.files.get('csvfile')
+        
+        if csvfile is None or csvfile.filename == '':
+            return render_template('hw3beta.html', error_message = 'ファイルが選択されていません。')
+        
+        csv_data = csvfile.read().decode('utf-8') # CSVファイルを文字列として取得
         csv_df = pd.read_csv(io.StringIO(csv_data), header=None) # dataframeに変換
         num_df = len(csv_df) # テキストの件数をカウント
         result_mat = [[None] * (num_Daikubun+2) for _ in range(num_df)] # 分類推定の結果を入れる２次元リストを準備
@@ -87,9 +92,9 @@ def post():
     all_result = dict(zip(Daikubun, yy))
 
     return render_template('index.html',
-        max_kubun=max_kubun,
-        all_result=all_result,
-        sample_text=sample_text, # 判定するオリジナルのテキスト
+        max_kubun = max_kubun,
+        all_result = all_result,
+        sample_text = sample_text, # 判定するオリジナルのテキスト
         )
 
 
