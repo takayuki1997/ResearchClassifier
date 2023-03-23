@@ -6,6 +6,35 @@
 ウェブアプリに仕立てるため、AmazonのAWSのサービス（EC2）を用いた。１年間は基本無料。ただ、固定IPにするので少しお金がかかる。  
 venvで環境を構築。flaskでウェブサーバを運用。  
 
+# ウェブアプリケーションの運用
+
+サーバの起動
+```
+source env/bin/actiavate
+cd env
+nohup python app.py nohup flask run >out.log 2>err.log &
+```
+サーバの終了（当該PIDを確認し、その番号のプロセスを終了させる。）
+```
+ps -fA | grep python
+kill 『PID』
+```
+
+簡易的なサーバの起動（terminalを閉じるとサーバが終了してしまうが、エラーログがすぐ表示されるので便利）
+```
+source env/bin/actiavate
+cd env
+python app.py
+```
+簡易的に立ち上げたサーバの終了
+```
+^C（Ctr+c）
+```
+
+# ウェブサーバの構築
+
+
+
 ## 元となったプログラム
 ### BERTによる自然言語処理を学ぼう！ -Attention、TransformerからBERTへとつながるNLP技術-
 自然言語処理の様々なタスクで高い性能を発揮する、「BERT」を学ぶ講座です。  
