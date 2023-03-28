@@ -43,7 +43,7 @@ scp -i"C:\Users\［ユーザ名］\.ssh\awsKeyPair.pem" C:\Users\［ユーザ名
 scp -i"C:\Users\［ユーザ名］\.ssh\awsKeyPair.pem" C:\Users\［ユーザ名］\Documents\GitHub\HW2beta\AWS\templates\hw3beta.html ec2-user@［175.41.232.240］:~/env/templates/hw3beta.html
 scp -i"C:\Users\［ユーザ名］\.ssh\awsKeyPair.pem" C:\Users\［ユーザ名］\Documents\GitHub\HW2beta\AWS\static\styles.css ec2-user@［175.41.232.240］:~/env/static/styles.css
 ```
-いくつか修正し、一段落ついたポイントでGitHubにプッシュ
+いくつか修正し、一段落ついたタイミングでGitHubにプッシュ
 
 ## 機械学習について
 Amazonの「SageMaker Studio Lab」を利用  
@@ -52,7 +52,8 @@ https://studiolab.sagemaker.aws
 # ウェブサーバの構築
 Amazon AWS EC2 「Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type」を選択した。
 
-ssh接続のための鍵を設定
+ssh接続のための鍵を設定  
+sshでサーバに接続
 
 無料のインスタンスだとメモリ不足が生じるので、スワップファイルを設定する。  
 https://repost.aws/ja/knowledge-center/ec2-memory-swap-file
