@@ -7,6 +7,10 @@
 venvで環境を構築。flaskでウェブサーバを運用。  
 
 # ウェブアプリケーションの運用
+まずはWindows PowerShellで以下のコマンドによりAWSのサーバに接続
+```
+ssh -i "C:\Users\［ユーザ名］\.ssh\awsKeyPair.pem" ec2-user@［175.41.232.240］
+```
 
 サーバの起動
 ```
@@ -17,7 +21,7 @@ nohup python app.py nohup flask run >out.log 2>err.log &
 サーバの終了（当該PIDを確認し、その番号のプロセスを終了させる。）
 ```
 ps -fA | grep python
-kill 『PID』
+kill ［ＰＩＤ］
 ```
 
 簡易的なサーバの起動（terminalを閉じるとサーバが終了してしまうが、エラーログがすぐ表示されるので便利）
@@ -28,12 +32,44 @@ python app.py
 ```
 簡易的に立ち上げたサーバの終了
 ```
-^C（Ctr+c）
+^C［Ctr+c］
 ```
 
+# コード編集
+## ウェブアプリケーションに関して
+ローカルのコードをVScode等のエディタで編集し、以下のコマンドでサーバにアップする。
+```
+scp -i"C:\Users\［ユーザ名］\.ssh\awsKeyPair.pem" C:\Users\［ユーザ名］\Documents\GitHub\HW2beta\AWS\app.py ec2-user@［175.41.232.240］:~/env/app.py
+scp -i"C:\Users\［ユーザ名］\.ssh\awsKeyPair.pem" C:\Users\［ユーザ名］\Documents\GitHub\HW2beta\AWS\templates\hw3beta.html ec2-user@［175.41.232.240］:~/env/templates/hw3beta.html
+scp -i"C:\Users\［ユーザ名］\.ssh\awsKeyPair.pem" C:\Users\［ユーザ名］\Documents\GitHub\HW2beta\AWS\static\styles.css ec2-user@［175.41.232.240］:~/env/static/styles.css
+```
+いくつか修正し、一段落ついたポイントでGitHubにプッシュ
+
+## 機械学習について
+Amazonの「SageMaker Studio Lab」を利用  
+https://studiolab.sagemaker.aws
+
 # ウェブサーバの構築
+Amazon AWS EC2 「Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type」を選択した。
 
+ssh接続のための鍵を設定
 
+無料のインスタンスだとメモリ不足が生じるので、スワップファイルを設定する。  
+https://repost.aws/ja/knowledge-center/ec2-memory-swap-file
+
+```
+sudo yum update
+python3 -m venv env
+source env/bin/activate
+
+pip install --upgrade pip
+pip install flask
+pip install transformers
+pip install torch （そのままでは入らない。工夫が必要）
+```
+
+固定IP  
+ポート5000を開ける
 
 ## 元となったプログラム
 ### BERTによる自然言語処理を学ぼう！ -Attention、TransformerからBERTへとつながるNLP技術-
