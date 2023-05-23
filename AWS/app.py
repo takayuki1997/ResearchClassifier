@@ -26,10 +26,10 @@ softmax = torch.nn.Softmax(dim=1) # Softmax関数で確率に変換
 
 def cat_estimation(sample_text, Daikubun):
     # 改行コード、半角スペースと全角スペースをを削除
-    sample_text = sample_text.replace('\r', '').replace('\n', '').replace(' ', '').replace('　', '')
+    processed_text = sample_text.replace('\r', '').replace('\n', '').replace(' ', '').replace('　', '')
 
     max_length = 512
-    words = loaded_tokenizer.tokenize(sample_text)
+    words = loaded_tokenizer.tokenize(processed_text)
     word_ids = loaded_tokenizer.convert_tokens_to_ids(words)  # 単語をインデックスに変換
     word_tensor = torch.tensor([word_ids[:max_length]])  # テンソルに変換
 
@@ -43,7 +43,7 @@ def cat_estimation(sample_text, Daikubun):
     yy = y.tolist()[0]
     yy = list(map(lambda x: int(x*100), yy))
     
-    return max_kubun, yy
+    return max_kubun, yy, processed_text
 
 
 @app.route('/hw3beta.html', methods=['GET'])
@@ -69,11 +69,11 @@ def post2():
         for i in range(num_df):
             sample_text = csv_df.iloc[i,0] # dataframeから一つのテキストを取り出す
             
-            max_kubun, yy = cat_estimation(sample_text, Daikubun)
+            max_kubun, yy, processed_text = cat_estimation(sample_text, Daikubun)
             
             result_mat[i][0] = max_kubun
             result_mat[i][1:-1] = yy
-            result_mat[i][-1] = sample_text[:10] + '…'
+            result_mat[i][-1] = processed_text[:10] + '…'
 
     return render_template('hw3beta.html',
         df_values = result_mat,
@@ -90,14 +90,14 @@ def get():
 def post():
     sample_text = request.form['name']
     
-    max_kubun, yy = cat_estimation(sample_text, Daikubun)
+    max_kubun, yy, processed_text = cat_estimation(sample_text, Daikubun)
     
     all_result = dict(zip(Daikubun, yy))
 
     return render_template('index.html',
         max_kubun = max_kubun,
         all_result = all_result,
-        sample_text = sample_text, # 判定するオリジナルのテキスト
+        processed_text = processed_text, # 判定するテキスト
         )
 
 
