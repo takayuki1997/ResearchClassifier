@@ -25,8 +25,8 @@ print('num_Daikubun: ', num_Daikubun)
 softmax = torch.nn.Softmax(dim=1) # Softmax関数で確率に変換
 
 def cat_estimation(sample_text, Daikubun):
-    # 改行コードを削除
-    sample_text = sample_text.replace('\r', '').replace('\n', '')
+    # 改行コード、半角スペースと全角スペースをを削除
+    sample_text = sample_text.replace('\r', '').replace('\n', '').replace(' ', '').replace('　', '')
 
     max_length = 512
     words = loaded_tokenizer.tokenize(sample_text)
